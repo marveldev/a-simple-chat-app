@@ -18,7 +18,7 @@ body {
   outline: none;
 }
 
-.clear-button {
+.clear-button,.person1,.person2 {
   border: unset;
   border-radius: 25px;
   font-weight: bold;
@@ -26,12 +26,12 @@ body {
   outline: none;
 }
 
-.send-button:hover,.clear-button:hover {
+.send-button:hover,.clear-button:hover,.person1:hover,.person2:hover {
   cursor: pointer;
   background-color: cadetblue;
 }
 
-.send-button:active,.clear-button:active {
+.send-button:active,.clear-button:active,.person1:active,.person2:active {
   transform: translateY(4px);
 }
 
@@ -48,7 +48,6 @@ body {
 .div-container {
   display: none;
   margin: auto;
-  margin-top: 2em;
   height: auto;
   width: 23em;
   border-radius: 25px;
@@ -58,13 +57,45 @@ body {
 
 .text-container {
   border: 1px solid #dedede;
-  background-color: #f1f1f1ec;
-  border-radius: 7px 7px 7px 0;
+  background-color: #f1f1f1dc;
+  border-radius: 10px 10px 10px 0;
   width: fit-content;
   word-break: break-all;
-  padding: 0.2em;
+  padding: 0.3em;
   display: block;
   margin-bottom: 0.15em;
+}
+
+.content {
+  margin-left:auto;
+  margin-right:0;
+  border-radius: 10px 10px 0px 10px;
+}
+
+.nav-section {
+  display: none;
+  position: fixed; 
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.nav {
+  background-color:  #6dcefb00;
+  margin: auto; 
+  margin-top: 8.5em;
+  padding: 30px;
+}
+
+.box1 {
+  display: none;
+  color: #ff0000e7;
+  text-align: center;
+  margin-right: 300px;
+  margin-top: 30px;
 }
 
 @media screen and (max-width: 375px) {
@@ -78,5 +109,10 @@ body {
   
   .div-container {
     width: 15em;
+  }
+
+  .box1 {
+    margin-right: 10em;
+    margin-top: 25px;
   }
 }
