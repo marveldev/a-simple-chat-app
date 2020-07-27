@@ -89,15 +89,25 @@ body {
   left: 10em;
 }
 
+.nav>.person1 {
+  margin-bottom: 8px;
+}
+
 .box1 {
   display: none;
   color: #ff0000e7;
   text-align: center;
   margin-right: 300px;
-  margin-top: 30px;
+  margin-top: 57px;
 }
 
 @media screen and (max-width: 375px) {
+  .nav {
+    position: relative;
+    top: 12.5em;
+    left: 6em;
+  }
+
   .textarea {
     width: 17em;
   }
@@ -112,6 +122,5 @@ body {
 
   .box1 {
     margin-right: 10em;
-    margin-top: 25px;
   }
 }
