@@ -31,7 +31,7 @@ body {
   background-color: cadetblue;
 }
 
-.send-button:active,.clear-button:active,.person1:active,.person2:active {
+.send-button:active,.clear-button:active,.person1:active,.person2:active,.fa-trash:active {
   transform: translateY(4px);
 }
 
@@ -94,11 +94,16 @@ body {
 }
 
 .box1 {
-  display: none;
+  /* display: none; */
   color: #ff0000e7;
   text-align: center;
   margin-right: 300px;
   margin-top: 57px;
+}
+
+.fa-trash:hover {
+  cursor: pointer;
+  color: #ff0000;
 }
 
 @media screen and (max-width: 375px) {

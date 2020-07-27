@@ -15,16 +15,29 @@ function appendComment() {
   boxOne.innerHTML = commentValue;
 }
 
+function removeItem() {
+  const deleteIcons = document.querySelectorAll('.fa-trash');
+  for (let index = 0; index < deleteIcons.length; index++) {
+    const element = deleteIcons[index];
+    element.addEventListener('click', () => {
+      const item = element.parentElement;
+      divContainer.removeChild(item);
+    })
+  }
+}
+
 function displayModal() {
   const textareaValue = textarea.value.trim();
   event.preventDefault();
   if (textareaValue.length > 1) {
     navSection.style.display = 'block';
     appendComment();
+    count++
   } else {
     alert('please enter a valid figure.')
   }
 }
+
 sendButton.addEventListener('click', displayModal);
 
 function addToDom() {
@@ -34,33 +47,33 @@ function addToDom() {
     <div class="text-container">
       <span>${textareaValue}</span><br>
       <small>${new Date().toLocaleTimeString()} &#x2713;</small>
+      <i class="fa fa-trash"></i>
     </div>
   `
   divContainer.style.display = 'block';
-  boxOne.style.display = 'block';
   divContainer.innerHTML += chatText;
   textarea.value = '';
   navSection.style.display = 'none';
-  count++
-}
+  removeItem();
+} 
 
 firstPersonButton.addEventListener('click', addToDom);
 
 function addToDomTwo() {
   event.preventDefault();
   const textareaValue = textarea.value.trim();
-    const chatText = `
-      <div class="text-container content">
-        <span>${textareaValue}</span><br>
-        <small>${new Date().toLocaleTimeString()} &#x2713;</small>
-      </div>
-    `
-    divContainer.style.display = 'block';
-    boxOne.style.display = 'block';
-    divContainer.innerHTML += chatText;
-    textarea.value = '';
-    navSection.style.display = 'none';
-    count++
+  const chatText = `
+    <div class="text-container content">
+      <span>${textareaValue}</span><br>
+      <small>${new Date().toLocaleTimeString()} &#x2713;</small>
+      <i class="fa fa-trash"></i>
+    </div>
+  `
+  divContainer.style.display = 'block';
+  divContainer.innerHTML += chatText;
+  textarea.value = '';
+  navSection.style.display = 'none';
+  removeItem();
 }
 
 secondPersonButton.addEventListener('click', addToDomTwo);
