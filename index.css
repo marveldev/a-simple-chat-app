@@ -84,10 +84,9 @@ body {
 }
 
 .nav {
-  background-color:  #6dcefb00;
-  margin: auto; 
-  margin-top: 8.5em;
-  padding: 30px;
+  position: relative;
+  top: 12.5em;
+  left: 10em;
 }
 
 .box1 {
