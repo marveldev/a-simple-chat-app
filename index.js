@@ -5,6 +5,9 @@ const boxOne = document.querySelector('.box1');
 const navSection = document.querySelector('.nav-section');
 const firstPersonButton = document.querySelector('.person1');
 const secondPersonButton = document.querySelector('.person2');
+const body = document.querySelector('body');
+const toggleOnButton = document.querySelector('.fa-toggle-on');
+
 
 let count = 1;
 
@@ -25,6 +28,18 @@ function removeItem() {
     })
   }
 }
+
+toggleOnButton.addEventListener('click', () => {
+  if (body.style.backgroundColor == 'violet') {
+    body.style.backgroundColor = 'grey';
+  } else if(body.style.backgroundColor == 'grey') {
+    body.style.backgroundColor = '#e93212d2';
+  } else if(body.style.backgroundColor == '#e93212d2') {
+    body.style.backgroundColor = '#1212e957';
+  } else {
+    body.style.backgroundColor = 'violet';
+  }
+})
 
 function displayModal() {
   const textareaValue = textarea.value.trim();
