@@ -9,6 +9,12 @@ body {
   text-align: center;
 }
 
+.select {
+  border-radius: 25px;
+  outline: none;
+  padding: 0.2em;
+}
+
 .send-button {
   border: unset;
   border-radius: 25px;
@@ -103,15 +109,6 @@ body {
 .fa-trash.fa-trash:hover {
   cursor: pointer;
   color: #ff0000;
-}
-
-.fa-toggle-on {
-  font-size: 2em;
-  cursor: pointer;
-}
-
-.fa-toggle-on:active {
-  transform: translateX(4px);
 }
 
 h1 {
