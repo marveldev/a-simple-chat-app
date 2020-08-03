@@ -9,7 +9,7 @@
     <title>A simple chat app</title>
   </head>
   <body>
-    <select class="select" onchange='changeBackground(this)'>
+    <select class="color-options" onchange='changeBackground()'>
       <option value="default" selected>default</option>
       <option value="violet">violet</option>
       <option value="grey">grey</option>
@@ -18,19 +18,20 @@
     </select>
     <section class="container">
       <h1>A SIMPLE CHAT APP</h1>
-      <form class="form">
-        <textarea class="textarea" placeholder="type message here..."></textarea><br>
-        <button class="clear-button">clear</button>
+      <form class="message-form">
+        <textarea class="message-input-box" placeholder="type message here..."></textarea><br>
+        <button class="clear button">clear</button>
         <button class="send-button">send</button>
-        <section class="nav-section">
-          <nav class="nav">
-            <button class="person1">person1</button><br>
-            <button class="person2">person2</button>
-          </nav>
+        <section class="person-options-modal">
+          <div class="person-options">
+            <button class="button person1">person1</button><br>
+            <button class="button person2">person2</button><br>
+            <button class="button cancel">cancel</button>
+          </div>
         </section>
       </form>
     </section>
-    <div class="box1"></div>
+    <div class="message-count"></div>
     <div class="div-container"></div>
     <script src="./index.js"></script>
   </body>

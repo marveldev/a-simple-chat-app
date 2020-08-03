@@ -9,7 +9,7 @@ body {
   text-align: center;
 }
 
-.select {
+.color-options {
   border-radius: 25px;
   outline: none;
   padding: 0.2em;
@@ -24,7 +24,7 @@ body {
   outline: none;
 }
 
-.clear-button,.person1,.person2 {
+.button {
   border: unset;
   border-radius: 25px;
   font-weight: bold;
@@ -32,16 +32,16 @@ body {
   outline: none;
 }
 
-.send-button:hover,.clear-button:hover,.person1:hover,.person2:hover {
+.button:hover {
   cursor: pointer;
   background-color: cadetblue;
 }
 
-.send-button:active,.clear-button:active,.person1:active,.person2:active,.fa-trash:active {
+.button:active,.fa-trash:active {
   transform: translateY(4px);
 }
 
-.textarea {
+.message-input-box {
   width: 27em;
   height: 5em;
   padding: 1em;
@@ -78,31 +78,30 @@ body {
   border-radius: 10px 10px 0px 10px;
 }
 
-.nav-section {
+.person-options-modal {
   display: none;
   position: fixed; 
-  z-index: 1; /* Sit on top */
+  z-index: 1; 
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  width: 100%; 
+  height: 100%; 
   background-color: rgba(0,0,0,0.4); 
 }
 
-.nav {
+.person-options {
   position: relative;
   top: 13em;
   left: 10em;
 }
 
-.nav>.person1 {
+.person-options .button {
   margin-bottom: 8px;
 }
 
-.box1 {
-  color: #ff0000e7;
+.message-count {
   text-align: center;
-  margin-right: 300px;
+  margin-right: 250px;
   margin-top: 57px;
 }
 
@@ -116,11 +115,11 @@ h1 {
 }
 
 @media screen and (max-width: 375px) {
-  .nav {
+  .person-options {
     left: 6em;
   }
 
-  .textarea {
+  .message-input-box {
     width: 17em;
   }
 
@@ -132,7 +131,7 @@ h1 {
     width: 15em;
   }
 
-  .box1 {
+  .message-count {
     margin-right: 10em;
   }
 }

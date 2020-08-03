@@ -1,34 +1,41 @@
-const textarea = document.querySelector('.textarea');
-const sendButton = document.querySelector('.send-button');
+const messageInputBox = document.querySelector('.message-input-box');
+const sendMessageButton = document.querySelector('.send-button');
 const divContainer = document.querySelector('.div-container');
-const boxOne = document.querySelector('.box1');
-const navSection = document.querySelector('.nav-section');
+const personOptionsModal = document.querySelector('.person-options-modal');
 const firstPersonButton = document.querySelector('.person1');
 const secondPersonButton = document.querySelector('.person2');
+const closeModalButton= document.querySelector('.cancel');
 
-let count = 1;
+let messageCount = 0;
 
-function appendComment() {
-  const commentValue = `
-    <small class="small">comments:${count}</small>
-  `
-  boxOne.innerHTML = commentValue;
-  count++
+closeModalButton.addEventListener('click', () => {
+  event.preventDefault();
+  personOptionsModal.style.display = 'none';
+})
+
+function displayMessageCount() {
+  messageCount++
+  const messageCountDiv = document.querySelector('.message-count');
+  messageCountDiv.innerHTML = `message-count: ${messageCount}`;
 }
 
 function removeItem() {
   const deleteIcons = document.querySelectorAll('.fa-trash');
   for (let index = 0; index < deleteIcons.length; index++) {
-    const element = deleteIcons[index];
-    element.addEventListener('click', () => {
-      const item = element.parentElement;
-      divContainer.removeChild(item);
+    const deleteIcon = deleteIcons[index];
+    deleteIcon.addEventListener('click', () => {
+      const messageItem = deleteIcon.parentElement;
+      divContainer.removeChild(messageItem);
+      messageCount--;
+      const messageCountDiv = document.querySelector('.message-count');
+      messageCountDiv.innerHTML = `message-count: ${messageCount}`;
     })
   }
 }
 
-function changeBackground(element) {
-  switch(element.value) {
+function changeBackground() {
+  const colorOptions = document.querySelector('.color-options');
+  switch(colorOptions.value) {
     case 'grey':
       document.body.style.backgroundColor = 'grey';
       break;
@@ -47,53 +54,54 @@ function changeBackground(element) {
   }
 }
 
-function displayModal() {
-  const textareaValue = textarea.value.trim();
+function displayPersonOptionModal() {
+  const messageInputBoxValue = messageInputBox.value.trim();
   event.preventDefault();
-  if (textareaValue.length > 1) {
-    navSection.style.display = 'block';
-    appendComment();
+  if (messageInputBoxValue.length > 1) {
+    personOptionsModal.style.display = 'block';
   } else {
     alert('please enter a valid figure.')
   }
 }
 
-sendButton.addEventListener('click', displayModal);
+sendMessageButton.addEventListener('click', displayPersonOptionModal);
 
-function addToDom() {
+function addPersonOneChatToDom() {
   event.preventDefault();
-  const textareaValue = textarea.value.trim();
-  const chatText = `
+  const messageInputBoxValue = messageInputBox.value.trim();
+  const messageItem = `
     <div class="text-container">
-      <span>${textareaValue}</span><br>
+      <span>${messageInputBoxValue}</span><br>
       <small>${new Date().toLocaleTimeString()} &#x2713;</small>
       <i class="fa fa-trash"></i>
     </div>
   `
   divContainer.style.display = 'block';
-  divContainer.innerHTML += chatText;
-  textarea.value = '';
-  navSection.style.display = 'none';
+  divContainer.innerHTML += messageItem;
+  messageInputBox.value = '';
+  personOptionsModal.style.display = 'none';
+  displayMessageCount()
   removeItem();
 } 
 
-firstPersonButton.addEventListener('click', addToDom);
+firstPersonButton.addEventListener('click', addPersonOneChatToDom);
 
-function addToDomTwo() {
+function addPersonTwoChatToDom() {
   event.preventDefault();
-  const textareaValue = textarea.value.trim();
-  const chatText = `
+  const messageInputBoxValue = messageInputBox.value.trim();
+  const messageItem = `
     <div class="text-container content">
-      <span>${textareaValue}</span><br>
+      <span>${messageInputBoxValue}</span><br>
       <small>${new Date().toLocaleTimeString()} &#x2713;</small>
       <i class="fa fa-trash"></i>
     </div>
   `
   divContainer.style.display = 'block';
-  divContainer.innerHTML += chatText;
-  textarea.value = '';
-  navSection.style.display = 'none';
+  divContainer.innerHTML += messageItem;
+  messageInputBox.value = '';
+  personOptionsModal.style.display = 'none';
+  displayMessageCount()
   removeItem();
 }
 
-secondPersonButton.addEventListener('click', addToDomTwo);
+secondPersonButton.addEventListener('click', addPersonTwoChatToDom);
