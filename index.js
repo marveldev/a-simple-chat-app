@@ -20,11 +20,11 @@ function displayMessageCount() {
 }
 
 function removeItem() {
-  const deleteIcons = document.querySelectorAll('.fa-trash');
-  for (let index = 0; index < deleteIcons.length; index++) {
-    const deleteIcon = deleteIcons[index];
-    deleteIcon.addEventListener('click', () => {
-      const messageItem = deleteIcon.parentElement;
+  const deleteButtons = document.querySelectorAll('.delete-button');
+  for (let index = 0; index < deleteButtons.length; index++) {
+    const deleteButton = deleteButtons[index];
+    deleteButton.addEventListener('click', () => {
+      const messageItem = deleteButton.parentElement;
       divContainer.removeChild(messageItem);
       messageCount--;
       const messageCountDiv = document.querySelector('.message-count');
@@ -73,7 +73,7 @@ function addPersonOneChatToDom() {
     <div class="text-container">
       <span>${messageInputBoxValue}</span><br>
       <small>${new Date().toLocaleTimeString()} &#x2713;</small>
-      <i class="fa fa-trash"></i>
+      <button class="delete-button"><i class="fa fa-trash"></i></button>
     </div>
   `
   divContainer.style.display = 'block';
@@ -93,7 +93,7 @@ function addPersonTwoChatToDom() {
     <div class="text-container content">
       <span>${messageInputBoxValue}</span><br>
       <small>${new Date().toLocaleTimeString()} &#x2713;</small>
-      <i class="fa fa-trash"></i>
+      <button class="delete-button"><i class="fa fa-trash"></i></button>
     </div>
   `
   divContainer.style.display = 'block';

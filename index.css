@@ -15,6 +15,14 @@ body {
   padding: 0.2em;
 }
 
+.color-options:focus,
+.message-input-box:focus,
+.button:focus,
+.send-button:focus,
+.delete-button:focus {
+  border: 2px solid black;
+}
+
 .send-button {
   border: unset;
   border-radius: 25px;
