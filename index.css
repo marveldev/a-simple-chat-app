@@ -9,54 +9,62 @@ body {
   text-align: center;
 }
 
+.container > h1 {
+  font-size: 2em;
+  margin-top: 0;
+}
+
 .color-options {
-  border-radius: 25px;
+  border-radius: 1.5em;
   outline: none;
   padding: 0.2em;
 }
 
-.color-options:focus,
-.message-input-box:focus,
-.button:focus,
-.send-button:focus,
-.delete-button:focus {
-  border: 2px solid black;
+.send {
+  margin-left: 18em;
 }
 
-.send-button {
-  border: unset;
-  border-radius: 25px;
-  font-weight: bold;
-  padding: 0.4em 0.7em;
-  margin-left: 20em;
-  outline: none;
+.delete-button {
+  cursor: pointer;
 }
 
 .button {
   border: unset;
-  border-radius: 25px;
-  font-weight: bold;
-  padding: 0.4em 0.7em;
+  border-radius: 1.5em;
+  font-weight: 700;
+  padding: 0.5em 1.5em;
   outline: none;
+  cursor: pointer;
 }
 
 .button:hover {
-  cursor: pointer;
   background-color: cadetblue;
 }
 
-.button:active,.fa-trash:active {
-  transform: translateY(4px);
+.button:focus {
+  border: 1px solid black;
+}
+
+.button:active {
+  transform: translateY(0.4em);
 }
 
 .message-input-box {
-  width: 27em;
-  height: 5em;
-  padding: 1em;
-  border: unset;
+  display: block;
+  margin: 1em auto;
+  height: auto;
+  font-size: 1.1em;
+  width: 25em;
+  padding: 1em 1.5em 0 1.5em;
+  border-radius: 2em;
   outline: none;
-  border-radius: 25px;
+  overflow: hidden;
   resize: none;
+}
+
+.message-input-box:focus {
+  border: 0.1em solid black;
+  background-color: #c3f6ff;
 }
 
 .div-container {
@@ -64,26 +72,26 @@ body {
   margin: auto;
   height: auto;
   width: 23em;
-  border-radius: 25px;
+  border-radius: 1.2em;
   padding: 0.7em;
-  background-color: #00000042;  
+  background-color: #00000042;
 }
 
-.text-container {
-  border: 1px solid #dedede;
-  background-color: #f1f1f1dc;
-  border-radius: 10px 10px 10px 0;
-  width: fit-content;
+.text {
   word-break: break-all;
-  padding: 0.3em;
-  display: block;
-  margin-bottom: 0.15em;
+  padding: 0 0.5em 0.5em 0.5em;
 }
 
 .content {
+  background-color: #f1f1f1;
+  width: fit-content;
+  margin-bottom: 0.2em;
+  border-radius: 0.5em;
+}
+
+.person-two {
   margin-left:auto;
   margin-right:0;
-  border-radius: 10px 10px 0px 10px;
 }
 
 .person-options-modal {
@@ -94,12 +102,12 @@ body {
   top: 0;
   width: 100%; 
   height: 100%; 
-  background-color: rgba(0,0,0,0.4); 
+  background-color: #00000066; 
 }
 
 .person-options {
   position: relative;
-  top: 13em;
+  top: 12em;
   left: 10em;
 }
 
@@ -109,17 +117,50 @@ body {
 
 .message-count {
   text-align: center;
-  margin-right: 250px;
-  margin-top: 57px;
 }
 
-.fa-trash.fa-trash:hover {
-  cursor: pointer;
-  color: #ff0000;
+.message-form {
+  height: auto;
+  margin-bottom: 5em;
 }
 
-h1 {
-  margin-top: 0;
+.arrow-right {
+  position: relative;
+  left: 7.4em;
+  width: 0;
+  height: 0;
+  border-top: 0.7em solid transparent;
+  border-bottom: 0.7em solid transparent;
+  border-left: 0.7em solid #f1f1f1;
+}
+
+.arrow-left {
+  position: relative;
+  right: 0.4em;
+  width: 0;
+  height: 0;
+  border-top: 0.7em solid transparent;
+  border-bottom: 0.7em solid transparent; 
+  border-right: 0.7em solid #f1f1f1;
+}
+
+.delete-modal {
+  display: none;
+  position: fixed;
+  top: 10em;
+  width: 25%;
+  padding: 1em 2em;
+  height: 10em;
+  border-radius: 0.8em;
+  text-align: center;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.delete {
+  color: #fff;
+  background-color: #e0245e;
+  margin-left: 1em;
 }
 
 @media screen and (max-width: 375px) {
