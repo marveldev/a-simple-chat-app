@@ -92,21 +92,25 @@ body {
   margin: 0 0 0.5em auto;
 }
 
-.person-options-modal {
+.overlay {
   display: none;
-  position: fixed; 
-  z-index: 1; 
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; 
-  height: 100%; 
+  width: 100%;
+  height: 100%;
   background-color: #00000066; 
 }
 
 .person-options {
+  display: none;
   position: relative;
-  top: 12em;
+  top: 0.5em;
   left: 10em;
+  margin: 0 auto;
+  width: fit-content;
+  z-index: 1;
 }
 
 .person-options .button {
@@ -147,11 +151,10 @@ body {
 
 .delete-modal {
   display: none;
-  position: fixed;
+  position: absolute;
   top: 10em;
-  width: 20%;
+  left: 41%;
   padding: 2em 2em 3em;
-  height: auto;
   border-radius: 0.8em;
   text-align: center;
   background-color: #fff;
