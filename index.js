@@ -1,7 +1,8 @@
 const messageInputBox = document.querySelector('.message-input-box');
 const sendMessageButton = document.querySelector('.send');
 const divContainer = document.querySelector('.div-container');
-const personOptionsModal = document.querySelector('.person-options-modal');
+const overlay = document.querySelector('.overlay');
+const personOptionsButtons = document.querySelector('.person-options');
 const firstPersonButton = document.querySelector('.person1');
 const secondPersonButton = document.querySelector('.person2');
 
@@ -21,14 +22,16 @@ function displayMessageCount() {
 sendMessageButton.addEventListener('click', () => {
   const messageInputBoxValue = messageInputBox.value.trim();
   if (messageInputBoxValue.length > 1) {
-    personOptionsModal.style.display = 'block';
+    overlay.style.display = 'block';
+    personOptionsButtons.style.display = 'block';
   } else {
     alert('please enter a valid figure.')
   }
 });
 
 document.querySelector('.cancel').addEventListener('click', () => {
-  personOptionsModal.style.display = 'none';
+  overlay.style.display = 'none';
+  personOptionsButtons.style.display = 'none';
 })
 
 function displayDeleteModal() {
@@ -37,7 +40,8 @@ function displayDeleteModal() {
     const openModalButton = openModalButtons[index];
     openModalButton.addEventListener('click', () => {
       const messageItem = openModalButton.title;
-      const deleteModal = document.querySelector(`.${messageItem}`)
+      const deleteModal = document.querySelector(`.${messageItem}`);
+      overlay.style.display = 'block';
       deleteModal.style.display = 'block';
     })
   }
@@ -49,12 +53,13 @@ function removeItem() {
     const deleteButton = deleteButtons[index];
     deleteButton.addEventListener('click', () => {
       const messageItem = deleteButton.title;
-      const itemDiv = document.querySelector(`#${messageItem}`)
+      const itemDiv = document.querySelector(`#${messageItem}`);
       divContainer.removeChild(itemDiv);
+      overlay.style.display = 'none';
       messageCount--;
       const messageCountDiv = document.querySelector('.message-count');
       messageCountDiv.innerHTML = `message-count: ${messageCount}`;
-      if (messageCount <= 1) {
+      if (messageCount < 1) {
         divContainer.style.display = 'none';
         messageCountDiv.innerHTML = '';
       }
@@ -69,6 +74,7 @@ function closeDeleteModal() {
     closeButton.addEventListener('click', () => {
       const deleteModal = closeButton.parentElement;
       deleteModal.style.display = 'none';
+      overlay.style.display = 'none';
     })
   }
 }
@@ -117,7 +123,8 @@ function addPersonOneChatToDom(event) {
   divContainer.innerHTML += messageItem;
   messageInputBox.value = '';
   messageInputBox.style.height = '';
-  personOptionsModal.style.display = 'none';
+  overlay.style.display = 'none';
+  personOptionsButtons.style.display = 'none';
   displayMessageCount();
   displayDeleteModal();
   removeItem();
@@ -151,7 +158,8 @@ function addPersonTwoChatToDom(event) {
   divContainer.innerHTML += messageItem;
   messageInputBox.value = '';
   messageInputBox.style.height = '';
-  personOptionsModal.style.display = 'none';
+  overlay.style.display = 'none';
+  personOptionsButtons.style.display = 'none';
   displayMessageCount();
   displayDeleteModal();
   removeItem();
