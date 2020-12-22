@@ -79,11 +79,16 @@ function closeDeleteModal() {
   }
 }
 
-function changeBackground() {
-  const colorOptions = document.querySelector('.color-options');
-  switch(colorOptions.value) {
+document.querySelector('.theme').addEventListener('click', () => {
+  overlay.style.display = 'block';
+  document.querySelector('#theme').style.display = 'block';
+});
+
+function changeBackground(element) {
+  const value = element.innerText;
+  switch(value) {
     case 'grey':
-      document.body.style.backgroundColor = 'grey';
+      document.body.style.backgroundColor = value;
       break;
     case 'violet':
       document.body.style.backgroundColor = '#b904b9';
@@ -98,6 +103,9 @@ function changeBackground() {
       document.body.style.backgroundColor = '#0101c0c7';
       break;
   }
+
+  overlay.style.display = 'none';
+  document.querySelector('#theme').style.display = 'none';
 }
 
 function addPersonOneChatToDom(event) {
