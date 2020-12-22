@@ -11,13 +11,35 @@ body {
 
 .container > h1 {
   font-size: 2em;
-  margin-top: 0;
+  margin: 0;
 }
 
-.color-options {
-  border-radius: 1.5em;
-  outline: none;
-  padding: 0.2em;
+#theme > strong {
+  line-height: 2em;
+  font-size: 1.2em;
+}
+
+.theme {
+  position: relative;
+  top: 2.5em;
+  right: 17em;
+}
+
+#theme {
+  display: none;
+  position: absolute;
+  left: 38%;
+  padding: 1.5em 0;
+  z-index: 1;
+  background-color: #fff;
+  width: 15em;
+}
+
+#theme > button {
+  width: 15em;
+  border-radius: unset;
+  margin: 0.5em;
+  padding: 1em 0;
 }
 
 .send {
@@ -105,10 +127,9 @@ body {
 
 .person-options {
   display: none;
-  position: relative;
-  top: 0.5em;
-  left: 10em;
-  margin: 0 auto;
+  position: absolute;
+  left: 58%;
+  top: 29%;
   width: fit-content;
   z-index: 1;
 }
