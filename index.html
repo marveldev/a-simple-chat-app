@@ -9,20 +9,22 @@
     <title>A simple chat app</title>
   </head>
   <body>
-    <select class="color-options" onchange='changeBackground()'>
-      <option value="default" selected>default</option>
-      <option value="violet">violet</option>
-      <option value="grey">grey</option>
-      <option value="red">red</option>
-      <option value="blue">blue</option>
-    </select>
     <section class="container">
+      <div class="overlay"></div>
+      <button class="theme button">Theme</button>
       <h1>A SIMPLE CHAT APP</h1>
+      <div id="theme">
+        <strong>Select Theme</strong>
+        <button type="button" class="button" onclick="changeBackground(this)">default</button>
+        <button type="button" class="button" onclick="changeBackground(this)">violet</button>
+        <button type="button" class="button" onclick="changeBackground(this)">grey</button>
+        <button type="button" class="button" onclick="changeBackground(this)">red</button>
+        <button type="button" class="button" onclick="changeBackground(this)">blue</button>
+      </div>
       <form class="message-form">
         <textarea class="message-input-box" placeholder="type message here..."></textarea>
         <button type="reset" class="clear button">clear</button>
         <button type="button" class="send button">send</button>
-        <div class="overlay"></div>
         <div class="person-options">
           <button type="submit" class="button person1">person1</button><br>
           <button type="submit" class="button person2">person2</button><br>
