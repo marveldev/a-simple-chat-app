@@ -8,6 +8,8 @@ const secondPersonButton = document.querySelector('.person2');
 
 let messageCount = 0;
 
+document.body.style.backgroundColor = localStorage.getItem('theme');
+
 messageInputBox.addEventListener('keydown', () => {
   messageInputBox.style.height = "1px";
   messageInputBox.style.height = (3+messageInputBox.scrollHeight)+"px";
@@ -87,23 +89,27 @@ document.querySelector('.theme').addEventListener('click', () => {
 function changeBackground(element) {
   const value = element.innerText;
   switch(value) {
-    case 'grey':
-      document.body.style.backgroundColor = value;
-      break;
-    case 'violet':
-      document.body.style.backgroundColor = '#b904b9';
-      break;
     case 'default':
       document.body.style.backgroundColor = '#1212e957';
+      localStorage.setItem('theme', '#1212e957');
+      break;
+    case 'grey':
+      document.body.style.backgroundColor = '#7c7575e0';
+      localStorage.setItem('theme', '#7c7575e0');
+      break;
+    case 'green':
+      document.body.style.backgroundColor = '#2c6936d2';
+      localStorage.setItem('theme', '#2c6936d2');
       break;
     case 'red':
-      document.body.style.backgroundColor = '#b80707da';
+      document.body.style.backgroundColor = '#973232f8';
+      localStorage.setItem('theme', '#973232f8');
       break;
     case 'blue':
-      document.body.style.backgroundColor = '#0101c0c7';
+      document.body.style.backgroundColor = '#303061d8';
+      localStorage.setItem('theme', '#303061d8');
       break;
   }
-
   overlay.style.display = 'none';
   document.querySelector('#theme').style.display = 'none';
 }
