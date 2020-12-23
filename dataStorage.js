@@ -31,37 +31,37 @@ const displayMessage = (selector) => {
 }
 
 const addEntryToDb = (entry) => {
-  // const database = request.result;
-  // const transaction = database.transaction(['chatApp'], 'readwrite');
-  // const store = transaction.objectStore('chatApp')
-  // store.add(entry);
+  const database = request.result;
+  const transaction = database.transaction(['chatApp'], 'readwrite');
+  const store = transaction.objectStore('chatApp')
+  store.add(entry);
 
-  // transaction.oncomplete = () => {
-  //   displayMessage('#entryMessage');
-  // }
+  transaction.oncomplete = () => {
+    console.log('sucess');
+  }
 
-  // transaction.onerror = () => {
-  //   console.log(`error adding to chatApp`)
-  // }
+  transaction.onerror = () => {
+    console.log(`error adding to chatApp`)
+  }
 }
 
 const getEntryFromDb = () => {
-  // const data = new Promise((resolve, reject) => {
-  //   const database = request.result
-  //   const transaction = database.transaction(['chatApp']);
-  //   const store = transaction.objectStore('chatApp')
-  //   const getData = store.getAll();
+  const data = new Promise((resolve, reject) => {
+    const database = request.result
+    const transaction = database.transaction(['chatApp']);
+    const store = transaction.objectStore('chatApp')
+    const getData = store.getAll();
 
-  //   getData.onsuccess = () => {
-  //     resolve(getData.result)
-  //   }
+    getData.onsuccess = () => {
+      resolve(getData.result)
+    }
 
-  //   getData.onerror = () => {
-  //     console.log(`error adding to 'item'`)
-  //     reject(getData.error);
-  //   }
-  // })
-  // return Promise.resolve(data);
+    getData.onerror = () => {
+      console.log(`error adding to 'item'`)
+      reject(getData.error);
+    }
+  })
+  return Promise.resolve(data);
 }
 
 const deleteEntry = (entryId) => {
@@ -71,4 +71,4 @@ const deleteEntry = (entryId) => {
   // store.delete(entryId)
 }
 
-export { request };
+export { request, addEntryToDb, getEntryFromDb };
