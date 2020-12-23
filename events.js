@@ -1,3 +1,5 @@
+import { addEntryToDb, getEntryFromDb } from "./dataStorage.js";
+
 const messageInputBox = document.querySelector('.message-input-box');
 const sendMessageButton = document.querySelector('.send');
 const messageCountDiv = document.querySelector('.message-count');
@@ -119,7 +121,7 @@ function changeBackground(element) {
   document.querySelector('#theme').style.display = 'none';
 }
 
-function addEntryToDb() {
+function chatEventListeners() {
   function addPersonOneChatToDom(event) {
     event.preventDefault();
     const itemId = 'id' + Math.random().toString(36).substring(7);
@@ -149,6 +151,15 @@ function addEntryToDb() {
     displayDeleteModal();
     removeItem();
     closeDeleteModal();
+
+    const addItemToIndexDb = {
+      itemId: itemId,
+      itemClass: 'person-one',
+      arrow: 'arrow-left',
+      messageInputBoxValue: messageInputBoxValue
+    };
+
+    addEntryToDb(addItemToIndexDb);
   }
   firstPersonButton.addEventListener('click', addPersonOneChatToDom);
 
@@ -183,17 +194,32 @@ function addEntryToDb() {
     displayDeleteModal();
     removeItem();
     closeDeleteModal();
-  
-    const addEntryToLocalStorage = {
+
+    const addItemToIndexDb = {
+      itemId: itemId,
       itemClass: 'person-two',
       arrow: 'arrow-right',
-      itemId: itemId,
       messageInputBoxValue: messageInputBoxValue
-    }
+    };
+
+    addEntryToDb(addItemToIndexDb);
   }
   secondPersonButton.addEventListener('click', addPersonTwoChatToDom);
-
 }
 
-export { addEntryToDb, formEventListeners }
+async function displayItemFromDb () {
+  const chatApp = await getEntryFromDb();
+  const chatItems = chatApp.map((chatItem) => {
+    console.log(chatItem);
+    const addItemToIndexDb =JSON.stringify({
+      itemId: chatItem.itemId,
+      itemClass: chatItem.itemClass,
+      arrow: chatItem.arrow,
+      messageInputBoxValue: chatItem.messageInputBoxValue
+    })
+    console.log(addItemToIndexDb);
+  })
+}
+
+export { chatEventListeners, formEventListeners, displayItemFromDb }
 
