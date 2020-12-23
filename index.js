@@ -1,45 +1,42 @@
 const messageInputBox = document.querySelector('.message-input-box');
 const sendMessageButton = document.querySelector('.send');
+const messageCountDiv = document.querySelector('.message-count');
 const divContainer = document.querySelector('.div-container');
 const overlay = document.querySelector('.overlay');
 const personOptionsButtons = document.querySelector('.person-options');
 const firstPersonButton = document.querySelector('.person1');
 const secondPersonButton = document.querySelector('.person2');
 
-let messageCount = 0;
-
 document.body.style.backgroundColor = localStorage.getItem('theme');
+const getMessageCount = localStorage.getItem('messageCount');
 
-// const dataStore = JSON.parse(localStorage.getItem('dataStore'));
-// console.log(dataStore);
+let messageCount = getMessageCount ? getMessageCount : 0;
 
-const getItemFromLocalStorage = (dataStore) => {
-  console.log(dataStore);
+const dataStore = JSON.parse(localStorage.getItem('dataStore') || '[]');
+
+dataStore.map((data) => {
+  messageCountDiv.innerHTML = `message-count: ${getMessageCount}`;
   const messageItem = `
-    <div id="${dataStore.itemId}" class="person-one content">
-      <div class="arrow-left"></div>
+    <div id="${data.itemId}" class="${data.itemClass} content">
+      <div class="${data.arrow}"></div>
       <div class="text">
-        <span class="message-value">${dataStore.messageInputBoxValue}</span><br>
-        <small>${new Date().toLocaleTimeString()} &#x2713;</small>
-        <button class="open-modal-button" title=${dataStore.itemId}><i class="fa fa-trash"></i></button>
+        <span class="message-value">${data.messageInputBoxValue}</span><br>
+        <small>${data.date} &#x2713;</small>
+        <button class="open-modal-button" title=${data.itemId}><i class="fa fa-trash"></i></button>
       </div>
-      <div class="delete-modal ${dataStore.itemId}">
+      <div class="delete-modal ${data.itemId}">
         <h2>Delete chat?</h2>
         <button class="close button">Cancel</button>
-        <button class="delete button" title=${dataStore.itemId}>Delete</button>
+        <button class="delete button" title=${data.itemId}>Delete</button>
       </div>
     </div>
   `
-  console.log(messageItem);
-
   divContainer.style.display = 'block';
-  divContainer.innerHTML = messageItem;
+  divContainer.innerHTML += messageItem;
   displayDeleteModal();
   removeItem();
   closeDeleteModal();
-}
-
-getItemFromLocalStorage(JSON.parse(localStorage.getItem('dataStore')));
+})
 
 messageInputBox.addEventListener('keydown', () => {
   messageInputBox.style.height = "1px";
@@ -48,7 +45,6 @@ messageInputBox.addEventListener('keydown', () => {
 
 function displayMessageCount() {
   messageCount++
-  const messageCountDiv = document.querySelector('.message-count');
   messageCountDiv.innerHTML = `message-count: ${messageCount}`;
 }
 
@@ -87,11 +83,19 @@ function removeItem() {
     deleteButton.addEventListener('click', () => {
       const messageItem = deleteButton.title;
       const itemDiv = document.querySelector(`#${messageItem}`);
-      divContainer.removeChild(itemDiv);
-      overlay.style.display = 'none';
+
       messageCount--;
-      const messageCountDiv = document.querySelector('.message-count');
       messageCountDiv.innerHTML = `message-count: ${messageCount}`;
+      overlay.style.display = 'none';
+
+      const dataStore = JSON.parse(localStorage.getItem('dataStore'));
+      const singleDataIndex = dataStore.findIndex(dataStore => dataStore.itemId == deleteButton.title);
+      dataStore.splice(singleDataIndex, 1)
+      localStorage.setItem('dataStore', JSON.stringify(dataStore));
+      localStorage.setItem('messageCount', messageCount)
+
+      divContainer.removeChild(itemDiv);
+
       if (messageCount < 1) {
         divContainer.style.display = 'none';
         messageCountDiv.innerHTML = '';
@@ -176,11 +180,18 @@ function addPersonOneChatToDom(event) {
   closeDeleteModal();
 
   const addEntryToLocalStorage = {
+    itemClass: 'person-one',
+    arrow: 'arrow-left',
     itemId: itemId,
     messageInputBoxValue: messageInputBoxValue
-  };
+  }
 
-  localStorage.setItem('dataStore', JSON.stringify(addEntryToLocalStorage))
+  let dataStore = JSON.parse(localStorage.getItem('dataStore') || '[]');
+  dataStore.push(addEntryToLocalStorage)
+
+  localStorage.setItem('dataStore', JSON.stringify(dataStore))
+
+  localStorage.setItem('messageCount', messageCount);
 } 
 
 firstPersonButton.addEventListener('click', addPersonOneChatToDom);
@@ -218,11 +229,18 @@ function addPersonTwoChatToDom(event) {
   closeDeleteModal();
 
   const addEntryToLocalStorage = {
+    itemClass: 'person-two',
+    arrow: 'arrow-right',
     itemId: itemId,
     messageInputBoxValue: messageInputBoxValue
-  };
+  }
 
-  localStorage.setItem('dataStore', JSON.stringify(addEntryToLocalStorage))
+  let dataStore = JSON.parse(localStorage.getItem('dataStore') || '[]');
+  dataStore.push(addEntryToLocalStorage)
+
+  localStorage.setItem('dataStore', JSON.stringify(dataStore))
+
+  localStorage.setItem('messageCount', messageCount);
 }
 
 secondPersonButton.addEventListener('click', addPersonTwoChatToDom);
