@@ -10,6 +10,37 @@ let messageCount = 0;
 
 document.body.style.backgroundColor = localStorage.getItem('theme');
 
+// const dataStore = JSON.parse(localStorage.getItem('dataStore'));
+// console.log(dataStore);
+
+const getItemFromLocalStorage = (dataStore) => {
+  console.log(dataStore);
+  const messageItem = `
+    <div id="${dataStore.itemId}" class="person-one content">
+      <div class="arrow-left"></div>
+      <div class="text">
+        <span class="message-value">${dataStore.messageInputBoxValue}</span><br>
+        <small>${new Date().toLocaleTimeString()} &#x2713;</small>
+        <button class="open-modal-button" title=${dataStore.itemId}><i class="fa fa-trash"></i></button>
+      </div>
+      <div class="delete-modal ${dataStore.itemId}">
+        <h2>Delete chat?</h2>
+        <button class="close button">Cancel</button>
+        <button class="delete button" title=${dataStore.itemId}>Delete</button>
+      </div>
+    </div>
+  `
+  console.log(messageItem);
+
+  divContainer.style.display = 'block';
+  divContainer.innerHTML = messageItem;
+  displayDeleteModal();
+  removeItem();
+  closeDeleteModal();
+}
+
+getItemFromLocalStorage(JSON.parse(localStorage.getItem('dataStore')));
+
 messageInputBox.addEventListener('keydown', () => {
   messageInputBox.style.height = "1px";
   messageInputBox.style.height = (3+messageInputBox.scrollHeight)+"px";
@@ -143,6 +174,13 @@ function addPersonOneChatToDom(event) {
   displayDeleteModal();
   removeItem();
   closeDeleteModal();
+
+  const addEntryToLocalStorage = {
+    itemId: itemId,
+    messageInputBoxValue: messageInputBoxValue
+  };
+
+  localStorage.setItem('dataStore', JSON.stringify(addEntryToLocalStorage))
 } 
 
 firstPersonButton.addEventListener('click', addPersonOneChatToDom);
@@ -178,6 +216,13 @@ function addPersonTwoChatToDom(event) {
   displayDeleteModal();
   removeItem();
   closeDeleteModal();
+
+  const addEntryToLocalStorage = {
+    itemId: itemId,
+    messageInputBoxValue: messageInputBoxValue
+  };
+
+  localStorage.setItem('dataStore', JSON.stringify(addEntryToLocalStorage))
 }
 
 secondPersonButton.addEventListener('click', addPersonTwoChatToDom);
