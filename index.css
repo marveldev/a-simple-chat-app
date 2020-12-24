@@ -198,24 +198,68 @@ body {
   word-wrap: break-word;
 }
 
+@media screen and (max-width: 425px) {
+  .display {
+    top: 2em;
+    right: 11em;
+  }
+
+  .container > h1 {
+    font-size: 1.5em;
+    margin: 0 0 0 2.5em;
+  }
+
+  #theme {
+    left: 22%;
+  }
+  
+  .delete-modal {
+    left: 22%;
+  }
+}
+
 @media screen and (max-width: 375px) {
-  .person-options {
-    left: 6em;
+  .display {
+    top: 1em;
+    right: 10em;
+  }
+
+  .container > h1 {
+    margin: 1em 0 0 0;
   }
 
   .message-input-box {
-    width: 17em;
+    font-size: 0.95em;
   }
 
-  .send-button {
-    margin-left: 10em;
+  .send {
+    margin-left: 12em;
   }
-  
+
   .div-container {
-    width: 15em;
+    width: 20em;
   }
 
-  .message-count {
-    margin-right: 10em;
+  .delete-modal {
+    left: 18%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .display {
+    top: 1em;
+    right: 8em;
+  }
+
+  .div-container {
+    width: 18em;
+  }
+
+  .delete-modal {
+    left: 12%;
+  }
+
+  .message-input-box {
+    font-size: 0.85em;
   }
 }
