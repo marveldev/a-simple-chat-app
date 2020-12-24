@@ -134,12 +134,13 @@ function chatEventListeners() {
     event.preventDefault();
     const itemId = 'id' + Date.parse(new Date()).toString();
     const messageInputBoxValue = messageInputBox.value.trim();
+    const chatTime = new Date().toLocaleTimeString();
     const messageItem = `
       <div id="${itemId}" class="person-one content">
         <div class="arrow-left"></div>
         <div class="text">
           <span class="message-value">${messageInputBoxValue}</span><br>
-          <small>${new Date().toLocaleTimeString()} &#x2713;</small>
+          <small>${chatTime} &#x2713;</small>
           <button class="open-modal-button" title=${itemId}><i class="fa fa-trash"></i></button>
         </div>
         <div class="delete-modal ${itemId}">
@@ -166,6 +167,7 @@ function chatEventListeners() {
       itemId: itemId,
       itemClass: 'person-one',
       arrow: 'arrow-left',
+      chatTime: chatTime,
       messageInputBoxValue: messageInputBoxValue
     };
 
@@ -177,12 +179,13 @@ function chatEventListeners() {
     event.preventDefault();
     const itemId = 'id' + Date.parse(new Date()).toString();
     const messageInputBoxValue = messageInputBox.value.trim();
+    const chatTime = new Date().toLocaleTimeString();
     const messageItem = `
       <div id="${itemId}" class="person-two content">
         <div class="arrow-right"></div>
         <div class="text">
           <span class="message-value">${messageInputBoxValue}</span><br>
-          <small>${new Date().toLocaleTimeString()} &#x2713;</small>
+          <small>${chatTime} &#x2713;</small>
           <button class="open-modal-button" title=${itemId}>
             <i class="fa fa-trash"></i>
           </button>
@@ -211,6 +214,7 @@ function chatEventListeners() {
       itemId: itemId,
       itemClass: 'person-two',
       arrow: 'arrow-right',
+      chatTime: chatTime,
       messageInputBoxValue: messageInputBoxValue
     };
 
@@ -226,17 +230,18 @@ async function displayItemFromDb () {
       itemId: chatItem.itemId,
       itemClass: chatItem.itemClass,
       arrow: chatItem.arrow,
+      chatTime: chatItem.chatTime,
       messageInputBoxValue: chatItem.messageInputBoxValue
     })
     
-    const { itemId, itemClass, arrow, messageInputBoxValue } = chatItem;
+    const { itemId, itemClass, arrow, chatTime, messageInputBoxValue } = chatItem;
 
     return `
       <div id="${itemId}" class="${itemClass} content">
         <div class="${arrow}"></div>
         <div class="text">
           <span class="message-value">${messageInputBoxValue}</span><br>
-          <small>${new Date().toLocaleTimeString()} &#x2713;</small>
+          <small>${chatTime} &#x2713;</small>
           <button class="open-modal-button" title=${itemId}>
             <i class="fa fa-trash"></i>
           </button>
