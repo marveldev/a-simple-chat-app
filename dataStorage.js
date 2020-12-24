@@ -16,20 +16,6 @@ request.onerror = () => {
   console.log('request unsuccessful');
 }
 
-const displayMessage = (selector) => {
-  // const message = document.querySelector(selector);
-  // message.style.display = 'block';
-
-  // setTimeout(() => {
-  //   message.style.display = 'none';
-  // }, 4000);
-
-  // const messageButton = message.lastElementChild;
-  // messageButton.addEventListener('click', () => {
-  //   message.style.display = 'none';
-  // })
-}
-
 const addEntryToDb = (entry) => {
   const database = request.result;
   const transaction = database.transaction(['chatApp'], 'readwrite');
