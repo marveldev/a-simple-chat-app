@@ -65,10 +65,10 @@ const getEntryFromDb = () => {
 }
 
 const deleteEntry = (entryId) => {
-  // const database = request.result;
-  // const transaction = database.transaction(['chatApp'], 'readwrite');
-  // const store = transaction.objectStore('chatApp');
-  // store.delete(entryId)
+  const database = request.result;
+  const transaction = database.transaction(['chatApp'], 'readwrite');
+  const store = transaction.objectStore('chatApp');
+  store.delete(entryId)
 }
 
-export { request, addEntryToDb, getEntryFromDb };
+export { request, addEntryToDb, getEntryFromDb, deleteEntry };
