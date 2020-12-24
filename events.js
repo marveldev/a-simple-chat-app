@@ -1,4 +1,4 @@
-import { addEntryToDb, getEntryFromDb } from "./dataStorage.js";
+import { addEntryToDb, getEntryFromDb, deleteEntry } from "./dataStorage.js";
 
 const messageInputBox = document.querySelector('.message-input-box');
 const sendMessageButton = document.querySelector('.send');
@@ -20,7 +20,7 @@ function formEventListeners() {
     messageInputBox.style.height = (3+messageInputBox.scrollHeight)+"px";
   })
 
-  document.querySelector('.theme').addEventListener('click', () => {
+  document.querySelector('.display').addEventListener('click', () => {
     overlay.style.display = 'block';
     document.querySelector('#theme').style.display = 'block';
   });
@@ -71,12 +71,16 @@ function removeItem() {
       messageCountDiv.innerHTML = `message-count: ${messageCount}`;
       overlay.style.display = 'none';
 
+      localStorage.setItem('messageCount', messageCount);
+
       divContainer.removeChild(itemDiv);
 
       if (messageCount < 1) {
         divContainer.style.display = 'none';
         messageCountDiv.innerHTML = '';
       }
+
+      deleteEntry(messageItem)
     })
   }
 }
@@ -93,38 +97,42 @@ function closeDeleteModal() {
   }
 }
 
-function changeBackground(element) {
-  const value = element.innerText;
-  switch(value) {
-    case 'default':
-      document.body.style.backgroundColor = '#1212e957';
-      localStorage.setItem('theme', '#1212e957');
-      break;
-    case 'grey':
-      document.body.style.backgroundColor = '#7c7575e0';
-      localStorage.setItem('theme', '#7c7575e0');
-      break;
-    case 'green':
-      document.body.style.backgroundColor = '#2c6936d2';
-      localStorage.setItem('theme', '#2c6936d2');
-      break;
-    case 'red':
-      document.body.style.backgroundColor = '#973232f8';
-      localStorage.setItem('theme', '#973232f8');
-      break;
-    case 'blue':
-      document.body.style.backgroundColor = '#303061d8';
-      localStorage.setItem('theme', '#303061d8');
-      break;
-  }
-  overlay.style.display = 'none';
-  document.querySelector('#theme').style.display = 'none';
+const themeButtons = document.querySelectorAll('.theme');
+for (let index = 0; index < themeButtons.length; index++) {
+  const themeButton = themeButtons[index];
+  const themeValue  = themeButton.innerText;
+  themeButton.addEventListener('click', () => {
+    switch(themeValue) {
+      case 'default':
+        document.body.style.backgroundColor = '#1212e957';
+        localStorage.setItem('theme', '#1212e957');
+        break;
+      case 'grey':
+        document.body.style.backgroundColor = '#7c7575e0';
+        localStorage.setItem('theme', '#7c7575e0');
+        break;
+      case 'green':
+        document.body.style.backgroundColor = '#2c6936d2';
+        localStorage.setItem('theme', '#2c6936d2');
+        break;
+      case 'red':
+        document.body.style.backgroundColor = '#973232f8';
+        localStorage.setItem('theme', '#973232f8');
+        break;
+      case 'blue':
+        document.body.style.backgroundColor = '#303061d8';
+        localStorage.setItem('theme', '#303061d8');
+        break;
+    }
+    overlay.style.display = 'none';
+    document.querySelector('#theme').style.display = 'none';
+  });
 }
 
 function chatEventListeners() {
   function addPersonOneChatToDom(event) {
     event.preventDefault();
-    const itemId = 'id' + Math.random().toString(36).substring(7);
+    const itemId = 'id' + Date.parse(new Date()).toString();
     const messageInputBoxValue = messageInputBox.value.trim();
     const messageItem = `
       <div id="${itemId}" class="person-one content">
@@ -152,6 +160,8 @@ function chatEventListeners() {
     removeItem();
     closeDeleteModal();
 
+    localStorage.setItem('messageCount', messageCount);
+
     const addItemToIndexDb = {
       itemId: itemId,
       itemClass: 'person-one',
@@ -165,7 +175,7 @@ function chatEventListeners() {
 
   function addPersonTwoChatToDom(event) {
     event.preventDefault();
-    const itemId = 'id' + Math.random().toString(36).substring(7);
+    const itemId = 'id' + Date.parse(new Date()).toString();
     const messageInputBoxValue = messageInputBox.value.trim();
     const messageItem = `
       <div id="${itemId}" class="person-two content">
@@ -195,6 +205,8 @@ function chatEventListeners() {
     removeItem();
     closeDeleteModal();
 
+    localStorage.setItem('messageCount', messageCount);
+
     const addItemToIndexDb = {
       itemId: itemId,
       itemClass: 'person-two',
@@ -210,16 +222,46 @@ function chatEventListeners() {
 async function displayItemFromDb () {
   const chatApp = await getEntryFromDb();
   const chatItems = chatApp.map((chatItem) => {
-    console.log(chatItem);
-    const addItemToIndexDb =JSON.stringify({
+    JSON.stringify({
       itemId: chatItem.itemId,
       itemClass: chatItem.itemClass,
       arrow: chatItem.arrow,
       messageInputBoxValue: chatItem.messageInputBoxValue
     })
-    console.log(addItemToIndexDb);
+    
+    const { itemId, itemClass, arrow, messageInputBoxValue } = chatItem;
+
+    return `
+      <div id="${itemId}" class="${itemClass} content">
+        <div class="${arrow}"></div>
+        <div class="text">
+          <span class="message-value">${messageInputBoxValue}</span><br>
+          <small>${new Date().toLocaleTimeString()} &#x2713;</small>
+          <button class="open-modal-button" title=${itemId}>
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+        <div class="delete-modal ${itemId}">
+          <h2>Delete chat?</h2>
+          <button class="close button">Cancel</button>
+          <button class="delete button" title=${itemId}>Delete</button>
+        </div>
+      </div>
+    `
   })
+
+  divContainer.style.display = 'block';
+  divContainer.innerHTML = chatItems.join('');
+  messageCountDiv.innerHTML = `message-count: ${messageCount}`;
+
+  if (messageCount < 1) {
+    divContainer.style.display = 'none';
+    messageCountDiv.innerHTML = '';
+  }
+
+  displayDeleteModal();
+  removeItem();
+  closeDeleteModal();
 }
 
 export { chatEventListeners, formEventListeners, displayItemFromDb }
-
