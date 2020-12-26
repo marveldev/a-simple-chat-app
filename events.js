@@ -8,8 +8,10 @@ const overlay = document.querySelector('.overlay');
 const personOptionsButtons = document.querySelector('.person-options');
 const firstPersonButton = document.querySelector('.person1');
 const secondPersonButton = document.querySelector('.person2');
+const messageForm = document.querySelector('.form');
 
-document.body.style.backgroundColor = localStorage.getItem('theme');
+document.body.style.backgroundColor = localStorage.getItem('theme') ||' #1212e957';
+messageForm.style.backgroundColor = localStorage.getItem('formTheme') || '#6262cc';
 const getMessageCount = localStorage.getItem('messageCount');
 
 let messageCount = getMessageCount ? getMessageCount : 0;
@@ -30,6 +32,7 @@ function formEventListeners() {
     if (messageInputBoxValue.length > 1) {
       overlay.style.display = 'block';
       personOptionsButtons.style.display = 'block';
+      document.body.classList.add('overlay-open');
     } else {
       alert('please enter a valid figure.')
     }
@@ -38,6 +41,7 @@ function formEventListeners() {
   document.querySelector('.cancel').addEventListener('click', () => {
     overlay.style.display = 'none';
     personOptionsButtons.style.display = 'none';
+    document.body.classList.remove('overlay-open');
   })
 }
 
@@ -105,23 +109,33 @@ for (let index = 0; index < themeButtons.length; index++) {
     switch(themeValue) {
       case 'default':
         document.body.style.backgroundColor = '#1212e957';
+        messageForm.style.backgroundColor = '#6262cc';
         localStorage.setItem('theme', '#1212e957');
+        localStorage.setItem('formTheme', '#6262cc');
         break;
       case 'grey':
         document.body.style.backgroundColor = '#7c7575e0';
+        messageForm.style.backgroundColor = '#7c7575';
         localStorage.setItem('theme', '#7c7575e0');
+        localStorage.setItem('formTheme', '#7c7575');
         break;
       case 'green':
         document.body.style.backgroundColor = '#2c6936d2';
+        messageForm.style.backgroundColor = '#2c6936';
         localStorage.setItem('theme', '#2c6936d2');
+        localStorage.setItem('formTheme', '#2c6936');
         break;
       case 'red':
         document.body.style.backgroundColor = '#973232f8';
+        messageForm.style.backgroundColor = '#973232';
         localStorage.setItem('theme', '#973232f8');
+        localStorage.setItem('formTheme', '#973232');
         break;
-      case 'blue':
+      case 'violet':
         document.body.style.backgroundColor = '#303061d8';
+        messageForm.style.backgroundColor = '#303061';
         localStorage.setItem('theme', '#303061d8');
+        localStorage.setItem('formTheme', '#303061');
         break;
     }
     overlay.style.display = 'none';
