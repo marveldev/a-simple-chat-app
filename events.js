@@ -10,10 +10,12 @@ const firstPersonButton = document.querySelector('.person1');
 const secondPersonButton = document.querySelector('.person2');
 const messageForm = document.querySelector('.form');
 
-document.body.style.backgroundColor = localStorage.getItem('theme') ||' #1212e957';
-messageForm.style.backgroundColor = localStorage.getItem('formTheme') || '#6262cc';
-const getMessageCount = localStorage.getItem('messageCount');
+document.body.style.backgroundColor = localStorage.getItem('theme');
+if (window.innerWidth <= 425) {
+  messageForm.style.backgroundColor = localStorage.getItem('formTheme');
+}
 
+const getMessageCount = localStorage.getItem('messageCount');
 let messageCount = getMessageCount ? getMessageCount : 0;
 
 function formEventListeners() {
@@ -24,8 +26,80 @@ function formEventListeners() {
 
   document.querySelector('.display').addEventListener('click', () => {
     overlay.style.display = 'block';
-    document.querySelector('#theme').style.display = 'block';
+    document.querySelector('#themeModal').style.display = 'block';
+    document.body.classList.add('overlay-open');
   });
+
+  const themeButtons = document.querySelectorAll('.theme');
+  for (let index = 0; index < themeButtons.length; index++) {
+    const themeButton = themeButtons[index];
+    const themeValue  = themeButton.innerText;
+    themeButton.addEventListener('click', () => {
+      switch(themeValue) {
+        case 'default':
+          document.body.style.backgroundColor = '#1212e957';
+          if (window.innerWidth <= 425) {
+            messageForm.style.backgroundColor = '#1212e9';
+            localStorage.setItem('formTheme', '#1212e9');
+          }
+          localStorage.setItem('theme', '#1212e957');
+          break;
+        case 'grey':
+          document.body.style.backgroundColor = '#7c7575e0';
+          if (window.innerWidth <= 425) {
+            messageForm.style.backgroundColor = '#7c7575';
+            localStorage.setItem('formTheme', '#7c7575');
+          }
+          localStorage.setItem('theme', '#7c7575e0');
+          break;
+        case 'green':
+          document.body.style.backgroundColor = '#2c6936d2';
+          if (window.innerWidth <= 425) {
+            messageForm.style.backgroundColor = '#2c6936';
+            localStorage.setItem('formTheme', '#2c6936');
+          }
+          localStorage.setItem('theme', '#2c6936d2');
+          break;
+        case 'red':
+          document.body.style.backgroundColor = '#973232f8';
+          if (window.innerWidth <= 425) {
+            messageForm.style.backgroundColor = '#973232';
+            localStorage.setItem('formTheme', '#973232');
+          }
+          localStorage.setItem('theme', '#973232f8');
+          break;
+        case 'violet':
+          document.body.style.backgroundColor = '#303061d8';
+          if (window.innerWidth <= 425) {
+            messageForm.style.backgroundColor = '#303061';
+            localStorage.setItem('formTheme', '#303061');
+          }
+          localStorage.setItem('theme', '#303061d8');
+          break;
+      }
+      overlay.style.display = 'none';
+      document.querySelector('#themeModal').style.display = 'none';
+      document.body.classList.remove('overlay-open');
+    });
+  }
+
+  document.querySelector('#closeModalButton').addEventListener('click', () => {
+    overlay.style.display = 'none';
+    document.querySelector('#themeModal').style.display = 'none';
+    document.body.classList.remove('overlay-open');
+  });
+
+  overlay.addEventListener('click', () => {
+    overlay.style.display = 'none';
+    document.querySelector('#themeModal').style.display = 'none';
+    personOptionsButtons.style.display = 'none';
+    document.body.classList.remove('overlay-open');
+    const deleteModals = document.querySelectorAll('.delete-modal');
+    for (let index = 0; index < deleteModals.length; index++) {
+      const deleteModal = deleteModals[index];
+      deleteModal.style.display = 'none';
+    }
+  })
 
   sendMessageButton.addEventListener('click', () => {
     const messageInputBoxValue = messageInputBox.value.trim();
@@ -99,48 +173,6 @@ function closeDeleteModal() {
       overlay.style.display = 'none';
     })
   }
-}
-
-const themeButtons = document.querySelectorAll('.theme');
-for (let index = 0; index < themeButtons.length; index++) {
-  const themeButton = themeButtons[index];
-  const themeValue  = themeButton.innerText;
-  themeButton.addEventListener('click', () => {
-    switch(themeValue) {
-      case 'default':
-        document.body.style.backgroundColor = '#1212e957';
-        messageForm.style.backgroundColor = '#6262cc';
-        localStorage.setItem('theme', '#1212e957');
-        localStorage.setItem('formTheme', '#6262cc');
-        break;
-      case 'grey':
-        document.body.style.backgroundColor = '#7c7575e0';
-        messageForm.style.backgroundColor = '#7c7575';
-        localStorage.setItem('theme', '#7c7575e0');
-        localStorage.setItem('formTheme', '#7c7575');
-        break;
-      case 'green':
-        document.body.style.backgroundColor = '#2c6936d2';
-        messageForm.style.backgroundColor = '#2c6936';
-        localStorage.setItem('theme', '#2c6936d2');
-        localStorage.setItem('formTheme', '#2c6936');
-        break;
-      case 'red':
-        document.body.style.backgroundColor = '#973232f8';
-        messageForm.style.backgroundColor = '#973232';
-        localStorage.setItem('theme', '#973232f8');
-        localStorage.setItem('formTheme', '#973232');
-        break;
-      case 'violet':
-        document.body.style.backgroundColor = '#303061d8';
-        messageForm.style.backgroundColor = '#303061';
-        localStorage.setItem('theme', '#303061d8');
-        localStorage.setItem('formTheme', '#303061');
-        break;
-    }
-    overlay.style.display = 'none';
-    document.querySelector('#theme').style.display = 'none';
-  });
 }
 
 function chatEventListeners() {
