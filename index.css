@@ -14,7 +14,7 @@ body {
   margin: 0;
 }
 
-#theme > strong {
+#themeModal > strong {
   line-height: 2em;
   font-size: 1.2em;
 }
@@ -25,21 +25,23 @@ body {
   right: 17em;
 }
 
-#theme {
+#themeModal {
   display: none;
   position: absolute;
-  left: 38%;
-  padding: 1.5em 0;
+  left: 35%;
+  top: 10%;
+  padding: 1.5em;
   z-index: 1;
   background-color: #fff;
-  width: 15em;
+  width: 25em;
 }
 
-#theme > button {
-  width: 15em;
-  border-radius: unset;
+#themeModal .button {
+  display: block;
+  width: 95%;
   margin: 0.5em;
-  padding: 1em 0;
+  border-radius: unset;
+  padding: 1em;
 }
 
 .send {
@@ -203,10 +205,24 @@ body {
   word-wrap: break-word;
 }
 
+#closeModalButton {
+  float: right;
+  border: unset;
+  border-radius: 1.5em;
+  font-weight: 600;
+  font-size: 1.1em;
+  height: 2em;
+  width: 2em;
+}
+
 @media screen and (max-width: 425px) {
   .display {
     top: 2em;
     right: 11em;
+  }
+
+  #closeModalButton {
+    margin-right: 3em;
   }
 
   .container h1 {
@@ -232,11 +248,11 @@ body {
     margin-bottom: 12em;
   }
 
-  #theme > strong {
+  #themeModal > strong {
     font-size: 1.4em;
   }
 
-  #theme {
+  #themeModal {
     position: fixed;
     top: 0;
     left: 0;
@@ -244,10 +260,8 @@ body {
     height: 100%;
   }
 
-  #theme > button {
-    width: 90%;
-    border-radius: unset;
-    margin: 0.5em;
+  #themeModal .button {
+    width: 85%;
     font-size: 1.2em;
     font-weight: 500;
   }
