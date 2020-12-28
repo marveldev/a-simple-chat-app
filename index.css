@@ -213,6 +213,42 @@ body {
   font-size: 1.1em;
   height: 2em;
   width: 2em;
+  cursor: pointer;
+}
+
+.message {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 2em;
+  width: 30%;
+  padding: 1em;
+  color: #000;
+  text-align: center;
+  animation-name: slide;
+  animation-duration: 1s;
+  background-color: #8ED0F9;
+}
+
+@keyframes slide {
+  from {top: -300px; opacity: 0}
+  to {top: 0; opacity: 1}
+}
+
+.message > strong {
+  font-size: 1.2em;
+  margin-right: 1em;
+}
+
+.message-btn {
+  border: unset;
+  border-radius: 1.8em;
+  font-weight: 700;
+  width: 4em;
+  height: 2em;
 }
 
 @media screen and (max-width: 425px) {
