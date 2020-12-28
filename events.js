@@ -108,7 +108,16 @@ function formEventListeners() {
       personOptionsButtons.style.display = 'block';
       document.body.classList.add('overlay-open');
     } else {
-      alert('please enter a valid figure.')
+      const message =  document.querySelector('.message');
+      message.style.display = 'block';
+      setTimeout(() => {
+        message.style.display = 'none';
+      }, 5000);
+    
+      const messageButton = message.lastElementChild;
+      messageButton.addEventListener('click', () => {
+        message.style.display = 'none';
+      })
     }
   });
 
@@ -202,6 +211,7 @@ function chatEventListeners() {
     messageInputBox.style.height = '';
     overlay.style.display = 'none';
     personOptionsButtons.style.display = 'none';
+    document.body.classList.remove('overlay-open');
     displayMessageCount();
     displayDeleteModal();
     removeItem();
@@ -249,6 +259,7 @@ function chatEventListeners() {
     messageInputBox.style.height = '';
     overlay.style.display = 'none';
     personOptionsButtons.style.display = 'none';
+    document.body.classList.remove('overlay-open');
     displayMessageCount();
     displayDeleteModal();
     removeItem();
