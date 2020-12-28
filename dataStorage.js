@@ -23,7 +23,7 @@ const addEntryToDb = (entry) => {
   store.add(entry);
 
   transaction.oncomplete = () => {
-    console.log('sucess');
+    console.log('success');
   }
 
   transaction.onerror = () => {
