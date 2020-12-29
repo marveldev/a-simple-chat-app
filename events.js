@@ -113,8 +113,8 @@ function formEventListeners() {
       setTimeout(() => {
         message.style.display = 'none';
       }, 5000);
-    
-      const messageButton = message.lastElementChild;
+
+      const messageButton = document.querySelector('.message-button');
       messageButton.addEventListener('click', () => {
         message.style.display = 'none';
       })
@@ -146,28 +146,44 @@ function displayDeleteModal() {
   }
 }
 
-function removeItem() {
+function removeChatItem() {
   const deleteButtons = document.querySelectorAll('.delete');
   for (let index = 0; index < deleteButtons.length; index++) {
     const deleteButton = deleteButtons[index];
     deleteButton.addEventListener('click', () => {
       const messageItem = deleteButton.title;
       const itemDiv = document.querySelector(`#${messageItem}`);
+      const chatItem = document.querySelector(`div[property=${messageItem}]`);
+      chatItem.style.display = 'none';
+      const restoreChat = chatItem.nextElementSibling;
+      restoreChat.style.display = 'block';
 
-      messageCount--;
-      messageCountDiv.innerHTML = `message-count: ${messageCount}`;
+      const deleteModal = deleteButton.parentElement;
+      deleteModal.style.display = 'none';
       overlay.style.display = 'none';
 
-      localStorage.setItem('messageCount', messageCount);
+      const timeOut = setTimeout(() => {
+        divContainer.removeChild(itemDiv);
+        deleteEntry(messageItem);
+        messageCount--;
+        messageCountDiv.innerHTML = `message-count: ${messageCount}`;
+        localStorage.setItem('messageCount', messageCount);
 
-      divContainer.removeChild(itemDiv);
+        if (messageCount < 1) {
+          divContainer.style.display = 'none';
+          messageCountDiv.innerHTML = '';
+        }
+      }, 5000);
 
-      if (messageCount < 1) {
-        divContainer.style.display = 'none';
-        messageCountDiv.innerHTML = '';
+      const restoreChats = document.querySelectorAll('.restore-chat');
+      for (let index = 0; index < restoreChats.length; index++) {
+        const restoreChat = restoreChats[index];
+        restoreChat.addEventListener('click', () => {
+          restoreChat.previousElementSibling.style.display = 'block';
+          restoreChat.style.display = 'none';
+          clearTimeout(timeOut);
+        })
       }
-
-      deleteEntry(messageItem)
     })
   }
 }
@@ -193,11 +209,12 @@ function chatEventListeners() {
     const messageItem = `
       <div id="${itemId}" class="person-one content">
         <div class="arrow-left"></div>
-        <div class="text">
+        <div class="text" property="${itemId}">
           <span class="message-value">${messageInputBoxValue}</span><br>
           <small>${chatTime} &#x2713;</small>
           <button class="open-modal-button" title=${itemId}><i class="fa fa-trash"></i></button>
         </div>
+        <p class="restore-chat">Tap to restore chat in 5secs</p>
         <div class="delete-modal ${itemId}">
           <h2>Delete chat?</h2>
           <button class="close button">Cancel</button>
@@ -214,7 +231,7 @@ function chatEventListeners() {
     document.body.classList.remove('overlay-open');
     displayMessageCount();
     displayDeleteModal();
-    removeItem();
+    removeChatItem();
     closeDeleteModal();
 
     localStorage.setItem('messageCount', messageCount);
@@ -239,13 +256,14 @@ function chatEventListeners() {
     const messageItem = `
       <div id="${itemId}" class="person-two content">
         <div class="arrow-right"></div>
-        <div class="text">
+        <div class="text" property="${itemId}">
           <span class="message-value">${messageInputBoxValue}</span><br>
           <small>${chatTime} &#x2713;</small>
           <button class="open-modal-button" title=${itemId}>
             <i class="fa fa-trash"></i>
           </button>
         </div>
+        <p class="restore-chat">Tap to restore chat in 5secs</p>
         <div class="delete-modal ${itemId}">
           <h2>Delete chat?</h2>
           <button class="close button">Cancel</button>
@@ -262,7 +280,7 @@ function chatEventListeners() {
     document.body.classList.remove('overlay-open');
     displayMessageCount();
     displayDeleteModal();
-    removeItem();
+    removeChatItem();
     closeDeleteModal();
 
     localStorage.setItem('messageCount', messageCount);
@@ -296,13 +314,14 @@ async function displayItemFromDb () {
     return `
       <div id="${itemId}" class="${itemClass} content">
         <div class="${arrow}"></div>
-        <div class="text">
+        <div class="text" property="${itemId}">
           <span class="message-value">${messageInputBoxValue}</span><br>
           <small>${chatTime} &#x2713;</small>
           <button class="open-modal-button" title=${itemId}>
             <i class="fa fa-trash"></i>
           </button>
         </div>
+        <p class="restore-chat">Tap to restore chat in 5secs</p>
         <div class="delete-modal ${itemId}">
           <h2>Delete chat?</h2>
           <button class="close button">Cancel</button>
@@ -322,7 +341,7 @@ async function displayItemFromDb () {
   }
 
   displayDeleteModal();
-  removeItem();
+  removeChatItem();
   closeDeleteModal();
 }
 
