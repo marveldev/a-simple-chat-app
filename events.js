@@ -301,16 +301,7 @@ function chatEventListeners() {
 async function displayItemFromDb () {
   const chatApp = await getEntryFromDb();
   const chatItems = chatApp.map((chatItem) => {
-    JSON.stringify({
-      itemId: chatItem.itemId,
-      itemClass: chatItem.itemClass,
-      arrow: chatItem.arrow,
-      chatTime: chatItem.chatTime,
-      messageInputBoxValue: chatItem.messageInputBoxValue
-    })
-    
     const { itemId, itemClass, arrow, chatTime, messageInputBoxValue } = chatItem;
-
     return `
       <div id="${itemId}" class="${itemClass} content">
         <div class="${arrow}"></div>
